@@ -100,7 +100,10 @@ bool Parser::peekMatch(const char *strPattern, size_t &iLen)
 	while (true)
 	{
 		if (strPattern[i] == 0)
+		{
+			iLen = i;
 			return true;
+		}
 
 		if ( (_iCursor + i) >= _iBuffer )
 			more();
@@ -190,3 +193,27 @@ bool Parser::readText(std::string &strText, char chDelimiter)
 	return strText.size() > 0;
 }
 
+// true if peek() returns an ASCII digit (may be base 10, hex, etc.)
+bool Parser::isdigit(unsigned char base)
+{
+	int peek = this->peek();
+	if (peek >= '0')
+	{
+		// digits 0 to 9
+		if (peek <= '9')
+		{
+			if (base <= 10)
+			{
+				return peek < ('0' + base);
+			}
+		}
+		// letters A to Z
+		else if (base <= 36)
+		{
+			// uppercase.
+			peek = toupper(peek);
+			return peek >= 'A' && peek < ('A' + base - 10);
+		}
+	}
+	return false;
+}

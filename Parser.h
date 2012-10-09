@@ -40,6 +40,8 @@ struct Parser
 	// skips / consumes whitespace.
 	// bInside - true if inside an element declaration eg. between '<' and '>'.
 	bool skipspace();
+	// true if peek() returns an ASCII digit (may be base 10, hex, etc.)
+	bool isdigit(unsigned char base = 10);
 private:
 	// replenish read-ahead buffer.
 	void more();
