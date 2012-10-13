@@ -7,6 +7,7 @@
 class FileInputStream : public IInputStream
 {
 	HANDLE _hFile;
+	FileInputStream & operator = (const FileInputStream &never);
 public:
 	FileInputStream();
 	bool Open(const TCHAR *strPath);
