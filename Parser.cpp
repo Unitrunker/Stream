@@ -160,6 +160,14 @@ int Parser::peek()
 	return -1;
 }
 
+// get next character and advance cursor.
+int Parser::readChar()
+{
+	if ( !eof() )
+		return _buffer[_iCursor++];
+	return -1;
+}
+
 // consume count characters.
 bool Parser::consume(size_t iCount)
 {
